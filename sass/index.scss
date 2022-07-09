@@ -1,0 +1,212 @@
+@mixin  pos_center {
+    position: absolute;
+    top: 50%;
+    left: 50% !important;
+    transform: translate(-50%, -50%);
+    transform-origin: center center;
+    border-radius: 50%;
+}
+
+// Global color variables
+$redColor: #DE4239;
+$redShadow:#CC2F2E;
+$dark:#3A3A3A;
+$light: #4A4A4A;
+$shadow: #ABABAB;
+$white: #EBEBEB;
+
+// Clock_container base reference variables
+$clock_width: 150px;
+$clock_height: 156px; 
+
+
+// OUTER ELEMENTS VARIABLES
+
+// common container sizes variables -- INNER ELEMENTS
+$first_con_size: 148px;
+$second_con_size: 125px;
+$third_con_size: 115px;
+$fourth_con_size: 115px;
+$inner_clock_size: 115px;
+
+//-- COMMMON INNER_CLOCK VARIABLES --// -- INNER ELEMENTS
+$timeDotWidth:6px; 
+$timeDotGap: 10px;
+$centerDotSize: 13px;
+$handHeight: 38px;
+$handWidth: 4.5px;
+
+*,*::after, *::before{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    position: relative;
+} 
+
+body {
+ min-height: 100vh;
+ width: 100vw;
+ overflow-x: hidden;
+ display: grid;
+ justify-content: center;
+ align-content: center;
+}
+
+.main_container{
+    height: 300px;
+    width: 300px;
+    position: relative;
+    border: 3px solid #ddd;
+}
+
+.clock_container{
+    height: $clock_height;
+    width: $clock_width;
+    border-radius: 50%;
+    background-color: $redShadow;
+    @include pos_center;
+
+    border-radius: 0px;
+    border: 1px solid #000;
+
+}
+
+/*** OUTER ELEMENTS ***/
+.ring{
+ position: absolute;
+ background-color: $light;
+}
+
+
+
+
+
+
+
+/**** INNER ELEMENTS ****/
+// childs of clock_container common styles
+.first_con, .second_con, .third_con, .fourth_con{
+    @include pos_center;
+}
+
+.clock_container{
+    & .first_con {
+        height:$first_con_size;
+        width: $first_con_size;
+        background: $redColor; 
+        top: 0px !important;
+        left: 50%;
+        transform: none;
+        transform: translateX(-50%);
+
+        & .second_con{
+            height:$second_con_size;
+            width: $second_con_size;
+            background: $dark; 
+        }
+
+        & .third_con{
+            height:$third_con_size;
+            width: $third_con_size;
+            background: $shadow;
+        }
+
+        & .fourth_con{
+            height:$fourth_con_size;
+            width: $fourth_con_size;
+            background: $white;   
+            box-shadow: 0px 8px 0px $shadow inset; 
+        }
+    }
+}
+
+.inner_clock{
+    height: $inner_clock_size;
+    width: $inner_clock_size;
+    position: absolute;
+    left: 50%;
+    top: 3px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background-color: none;
+    & .time {
+        position: absolute;
+        height:$timeDotWidth;
+        width:$timeDotWidth;
+        background-color: $light;
+        border-radius: 50%;
+    }
+
+    // common styles
+    & .time1, & .time3{
+        left: 50%;
+    }
+
+    & .time2, & .time4{
+        top: 50%;
+        transform: translateY(-$timeDotWidth/2);
+    }
+
+    //top bottom
+    .time1{
+        top: $timeDotGap;
+        transform: translateX(-$timeDotWidth/2);
+    }
+    .time3{
+        bottom: $timeDotGap;
+        transform: translateX(-$timeDotWidth/2);
+    }
+
+    // left right
+    .time2 {
+        right: $timeDotGap;
+    }
+    .time4 {
+        left: $timeDotGap;
+    }
+
+    // centerDOt
+    & .centerDot{
+
+        &::after {
+            content: "";
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: inherit;
+            border-radius: inherit;
+        }
+        height:$centerDotSize;
+        width: $centerDotSize;
+        background-color: $dark;
+        @include pos_center;
+
+        & .hand {
+            position: absolute;
+            height: $handHeight;
+            width: $handWidth;
+            left: 50%;
+            top: calc($centerDotSize/2);
+            transform: translateX(-50%);
+            transform-origin: top center;
+            background: $dark;
+            border-radius: 4px;
+        }
+
+        & .hourhand{
+            transform: rotate(45deg);
+        }
+
+        & .secondhand{
+            width: 3px;
+            background-color: $redColor;
+            transform: rotate(80deg);
+        }
+
+    }
+
+}
+
+
