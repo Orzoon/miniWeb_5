@@ -15,26 +15,63 @@ $light: #4A4A4A;
 $shadow: #ABABAB;
 $white: #EBEBEB;
 
-// Clock_container base reference variables
-$clock_width: 150px;
-$clock_height: 156px; 
+
+$clock_con_width: 150px;
+$clock_con_height: 156px; 
+// $clock_width: 150px;
+// $clock_height: 156px; 
+// new changes
+$clock_width: 0px;
+$clock_height: 0px; 
 
 
 // OUTER ELEMENTS VARIABLES
+$ringWidth:15px;
+$ringHeight: 50px;
+$leftRightGap: 40px;
+$ringCapWidth: 45px;
+$ringCapHeight:28px;
+//---mid-ring
+$midRingWidth: 45px;
+$midRingHeight: calc($ringCapWidth - 5px);
+$midRingMidHeight: 18px;
+$midRingTopWidth: 38px;
+$midRingTopHeight: 10px;
+
 
 // common container sizes variables -- INNER ELEMENTS
-$first_con_size: 148px;
-$second_con_size: 125px;
-$third_con_size: 115px;
-$fourth_con_size: 115px;
-$inner_clock_size: 115px;
+// $first_con_size: 148px;
+// $second_con_size: 125px;
+// $third_con_size: 115px;
+// $fourth_con_size: 115px;
+// $inner_clock_size: 115px;
+//-----new variables
+$first_con_wrapper_size: 148px;
+$first_con_size: 0px;
+$second_con_size: 0px;
+$third_con_size: 0px;
+$fourth_con_size: 0px;
+$inner_clock_size: 0px;
 
 //-- COMMMON INNER_CLOCK VARIABLES --// -- INNER ELEMENTS
 $timeDotWidth:6px; 
+$timeDotWidth:0px; 
+
 $timeDotGap: 10px;
+
 $centerDotSize: 13px;
-$handHeight: 38px;
+$centerDotSize: 0px;
+
+//$handHeight: 38px;
+$handHeight: 0px;
 $handWidth: 4.5px;
+
+
+// legs variables
+$legHeight: 35px;
+$legWidth: 10px;
+$legAngle: 25deg;
+
 
 *,*::after, *::before{
     padding: 0px;
@@ -56,31 +93,117 @@ body {
     height: 300px;
     width: 300px;
     position: relative;
-    border: 3px solid #ddd;
+    //border: 3px solid #ddd;
+    // box-shadow: 2px 2px 6px rgb(16, 15, 15) inset;
+    // box-shadow: 0px 0px 5px rgb(90, 85, 85);
 }
 
 .clock_container{
-    height: $clock_height;
-    width: $clock_width;
+    height: $clock_con_height;
+    width: $clock_con_width;
     border-radius: 50%;
-    background-color: $redShadow;
+    //background-color: $redShadow;
     @include pos_center;
-
-    border-radius: 0px;
-    border: 1px solid #000;
+    // clear later on
+    // border-radius: 0px;
+    // border: 1px solid #000;
 
 }
 
 /*** OUTER ELEMENTS ***/
 .ring{
- position: absolute;
- background-color: $light;
+    display: none;
+    z-index: 0;
+    position: absolute;
+    background-color: $light;
 }
 
+.clock_container{
+    & .leftRing, & .rightRing{
+        display: none;
+        height: $ringHeight;
+        width: $ringWidth;
+        background-color: $light !important;
+        // common top value
+        top: 0px;
+        transform-origin: bottom center;
 
 
+        &::after{
+            content: "";
+            position: absolute;
+            top: -$ringCapHeight + 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: $ringCapHeight;
+            width: $ringCapWidth;
+            background-color: $dark;
+            border-top-right-radius: 50%;
+            border-top-left-radius: 50%;
+        }
+    }
 
+    & .leftRing{
+        display: none;
+        // top: 40px;
+        // left: 80px;
+        left: $leftRightGap;
+        transform: rotate(-45deg);
+    }
 
+    & .rightRing{
+        display: none;
+        right: $leftRightGap;
+        //left equivalent
+        //left: $clock_width - $leftRightGap;
+        transform: rotate(45deg);
+    }  
+
+    & .midRing{
+        height: $midRingHeight;
+        width: $midRingWidth;
+        left: 50%;
+        top: -6px;
+        transform: translateX(-50%);
+        border-radius: 3px;
+        background-color: $dark;
+
+        // color fix
+        &::after{
+            content: " ";
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 10px;
+            background-color: $dark;
+            border-radius: inherit;
+        }
+
+        & .mr_top {
+            display: none;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            // top below top in animation
+            top: - calc($midRingMidHeight - 5px);
+            height: $midRingMidHeight;
+            width: $ringWidth;
+            background-color: $light;
+
+            &::after{
+                position: absolute;
+                content: "";
+                top: - calc($midRingTopHeight - 2px);
+                left: 50%;
+                transform: translateX(-50%);
+                height: $midRingTopHeight;
+                width: $midRingTopWidth;
+                background-color: $dark; 
+                border-radius: 4px;
+            }
+        }
+    }
+}
 
 
 /**** INNER ELEMENTS ****/
@@ -90,46 +213,76 @@ body {
 }
 
 .clock_container{
-    & .first_con {
-        height:$first_con_size;
-        width: $first_con_size;
-        background: $redColor; 
-        top: 0px !important;
+    & .first_con_wrapper{
+        z-index: 3;
+        height:$first_con_wrapper_size;
+        width: $first_con_wrapper_size;
+        position: absolute;
+        top: -3px;
         left: 50%;
-        transform: none;
+        background:none;
         transform: translateX(-50%);
-
-        & .second_con{
-            height:$second_con_size;
-            width: $second_con_size;
-            background: $dark; 
-        }
-
-        & .third_con{
-            height:$third_con_size;
-            width: $third_con_size;
-            background: $shadow;
-        }
-
-        & .fourth_con{
-            height:$fourth_con_size;
-            width: $fourth_con_size;
-            background: $white;   
-            box-shadow: 0px 8px 0px $shadow inset; 
+        & .first_con {
+            position: absolute !important;
+            height:$first_con_size;
+            width: $first_con_size;
+            background: $redColor; 
+            top: 50%;
+            //top: -3px;
+            left: 50%;
+            transform: none;
+            transform: translate(-50%, -50%);
+            & .second_con{
+                display: block;
+                height:$second_con_size;
+                width: $second_con_size;
+                background: $dark; 
+            }
+    
+            & .third_con{
+                display: block;
+                height:$third_con_size;
+                width: $third_con_size;
+                background: $shadow;
+            }
+    
+            & .fourth_con{
+                display: block;
+                height:$fourth_con_size;
+                width: $fourth_con_size;
+                background:$white;   
+                box-shadow: 0px 8px 0px $shadow inset; 
+            }
         }
     }
 }
 
+
+.inner_clock_wrapper{
+    position: absolute;
+    height: $inner_clock_size;
+    width: $inner_clock_size;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, - $inner_clock-size/2 + 3px);
+    border-radius: 50%;
+    background-color: none;
+}
+
 .inner_clock{
+    //border: 2px solid blue;
     height: $inner_clock_size;
     width: $inner_clock_size;
     position: absolute;
     left: 50%;
-    top: 3px;
-    transform: translateX(-50%);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: center center;
     border-radius: 50%;
     background-color: none;
+    z-index: 9;
     & .time {
+        opacity: 0;
         position: absolute;
         height:$timeDotWidth;
         width:$timeDotWidth;
@@ -144,17 +297,17 @@ body {
 
     & .time2, & .time4{
         top: 50%;
-        transform: translateY(-$timeDotWidth/2);
+        transform: translateY(- ($timeDotWidth / 2px));
     }
 
     //top bottom
     .time1{
         top: $timeDotGap;
-        transform: translateX(-$timeDotWidth/2);
+    transform:  translateX(- ($timeDotWidth / 2));
     }
     .time3{
         bottom: $timeDotGap;
-        transform: translateX(-$timeDotWidth/2);
+        transform: translateX(- ($timeDotWidth /  2));
     }
 
     // left right
@@ -167,7 +320,6 @@ body {
 
     // centerDOt
     & .centerDot{
-
         &::after {
             content: "";
             height: 100%;
@@ -189,6 +341,7 @@ body {
             width: $handWidth;
             left: 50%;
             top: calc($centerDotSize/2);
+            top:6.5px;
             transform: translateX(-50%);
             transform-origin: top center;
             background: $dark;
@@ -196,10 +349,12 @@ body {
         }
 
         & .hourhand{
+            height:0px;
             transform: rotate(45deg);
         }
-
+        
         & .secondhand{
+            height: 0px;
             width: 3px;
             background-color: $redColor;
             transform: rotate(80deg);
@@ -208,5 +363,59 @@ body {
     }
 
 }
+
+/**** LEGS AND SHADOW ****/
+.wrapper {
+    z-index: 2;
+    position: absolute;
+    height: $clock_height;
+    width: $clock_width;
+    background-color: $redShadow;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: center center;
+    border-radius: 50%;
+}
+.leg{
+    display: none;
+    z-index: 1;
+    position: absolute;
+    height: $legHeight;
+    width: $legWidth;
+    //bottom: (20px - $legHeight);
+    // top: $clock_height - 22px;
+    top: 156px - 22px;
+    background-color: $dark;
+    transform-origin: top center;
+    border-radius: 10px;
+}
+
+.leftLeg{
+    left: $leftRightGap  - 5px;
+    transform: rotate($legAngle);
+}
+
+.rightLeg{
+    right: $leftRightGap - 5px;
+    transform: rotate(-$legAngle);
+}
+
+.shadow{
+    //display: none;
+    // height: 45px;
+    // width: 150px;
+    height: 0px;
+    width: 0px;
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background-color: rgba(188, 181, 181, 0.663);
+
+}
+
+
 
 

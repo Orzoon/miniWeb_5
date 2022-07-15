@@ -6,27 +6,38 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title html css clock
         link(rel="stylesheet", href="./css/index.css")
+        script(src = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js")
+        script(src="./js/index.js")
     body 
-        .main_container 
+        .main_container
             .clock_container
+                .wrapper 
                 // outer elements
-                .leftRing.ring 
+                .leftRing.ring
                 .rightRing.ring 
                 .midRing.ring 
+                    .mr_top
+                //Legs--Shadows
+                .leg.leftLeg 
+                .leg.rightLeg 
+                .shadow
                 // inner elements
-                .first_con 
-                    .second_con 
-                    .third_con 
-                    .fourth_con
-                        .inner_clock
-                            .time.time1 
-                            .time.time2 
-                            .time.time3 
-                            .time.time4
-                            .centerDot 
-                                .hourhand.hand
-                                .minutehand.hand 
-                                .secondhand.hand
+                .first_con_wrapper
+                    .first_con 
+                        .second_con 
+                        .third_con 
+                        .fourth_con
+                            .inner_clock_wrapper
+                                .inner_clock
+                                    .time.time1 
+                                    .time.time2 
+                                    .time.time3 
+                                    .time.time4
+                                    .centerDot 
+                                        .hourhand.hand
+                                        .minutehand.hand 
+                                        .secondhand.hand
+
                 
 
 

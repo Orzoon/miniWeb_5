@@ -18,28 +18,96 @@ body {
   height: 300px;
   width: 300px;
   position: relative;
-  border: 3px solid #ddd;
 }
 
 .clock_container {
   height: 156px;
   width: 150px;
   border-radius: 50%;
-  background-color: #CC2F2E;
   position: absolute;
   top: 50%;
   left: 50% !important;
   transform: translate(-50%, -50%);
   transform-origin: center center;
   border-radius: 50%;
-  border-radius: 0px;
-  border: 1px solid #000;
 }
 
 /*** OUTER ELEMENTS ***/
 .ring {
+  display: none;
+  z-index: 0;
   position: absolute;
   background-color: #4A4A4A;
+}
+
+.clock_container .leftRing, .clock_container .rightRing {
+  display: none;
+  height: 50px;
+  width: 15px;
+  background-color: #4A4A4A !important;
+  top: 0px;
+  transform-origin: bottom center;
+}
+.clock_container .leftRing::after, .clock_container .rightRing::after {
+  content: "";
+  position: absolute;
+  top: -26px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 28px;
+  width: 45px;
+  background-color: #3A3A3A;
+  border-top-right-radius: 50%;
+  border-top-left-radius: 50%;
+}
+.clock_container .leftRing {
+  display: none;
+  left: 40px;
+  transform: rotate(-45deg);
+}
+.clock_container .rightRing {
+  display: none;
+  right: 40px;
+  transform: rotate(45deg);
+}
+.clock_container .midRing {
+  height: 40px;
+  width: 45px;
+  left: 50%;
+  top: -6px;
+  transform: translateX(-50%);
+  border-radius: 3px;
+  background-color: #3A3A3A;
+}
+.clock_container .midRing::after {
+  content: " ";
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 10px;
+  background-color: #3A3A3A;
+  border-radius: inherit;
+}
+.clock_container .midRing .mr_top {
+  display: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -13px;
+  height: 18px;
+  width: 15px;
+  background-color: #4A4A4A;
+}
+.clock_container .midRing .mr_top::after {
+  position: absolute;
+  content: "";
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 10px;
+  width: 38px;
+  background-color: #3A3A3A;
+  border-radius: 4px;
 }
 
 /**** INNER ELEMENTS ****/
@@ -52,46 +120,74 @@ body {
   border-radius: 50%;
 }
 
-.clock_container .first_con {
+.clock_container .first_con_wrapper {
+  z-index: 3;
   height: 148px;
   width: 148px;
-  background: #DE4239;
-  top: 0px !important;
+  position: absolute;
+  top: -3px;
   left: 50%;
-  transform: none;
+  background: none;
   transform: translateX(-50%);
 }
-.clock_container .first_con .second_con {
-  height: 125px;
-  width: 125px;
+.clock_container .first_con_wrapper .first_con {
+  position: absolute !important;
+  height: 0px;
+  width: 0px;
+  background: #DE4239;
+  top: 50%;
+  left: 50%;
+  transform: none;
+  transform: translate(-50%, -50%);
+}
+.clock_container .first_con_wrapper .first_con .second_con {
+  display: block;
+  height: 0px;
+  width: 0px;
   background: #3A3A3A;
 }
-.clock_container .first_con .third_con {
-  height: 115px;
-  width: 115px;
+.clock_container .first_con_wrapper .first_con .third_con {
+  display: block;
+  height: 0px;
+  width: 0px;
   background: #ABABAB;
 }
-.clock_container .first_con .fourth_con {
-  height: 115px;
-  width: 115px;
+.clock_container .first_con_wrapper .first_con .fourth_con {
+  display: block;
+  height: 0px;
+  width: 0px;
   background: #EBEBEB;
   box-shadow: 0px 8px 0px #ABABAB inset;
 }
 
-.inner_clock {
-  height: 115px;
-  width: 115px;
+.inner_clock_wrapper {
   position: absolute;
+  height: 0px;
+  width: 0px;
   left: 50%;
-  top: 3px;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translate(-50%, 3px);
   border-radius: 50%;
   background-color: none;
 }
-.inner_clock .time {
+
+.inner_clock {
+  height: 0px;
+  width: 0px;
   position: absolute;
-  height: 6px;
-  width: 6px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+  border-radius: 50%;
+  background-color: none;
+  z-index: 9;
+}
+.inner_clock .time {
+  opacity: 0;
+  position: absolute;
+  height: 0px;
+  width: 0px;
   background-color: #4A4A4A;
   border-radius: 50%;
 }
@@ -100,15 +196,15 @@ body {
 }
 .inner_clock .time2, .inner_clock .time4 {
   top: 50%;
-  transform: translateY(-3px);
+  transform: translateY(0);
 }
 .inner_clock .time1 {
   top: 10px;
-  transform: translateX(-3px);
+  transform: translateX(0px);
 }
 .inner_clock .time3 {
   bottom: 10px;
-  transform: translateX(-3px);
+  transform: translateX(0px);
 }
 .inner_clock .time2 {
   right: 10px;
@@ -117,8 +213,8 @@ body {
   left: 10px;
 }
 .inner_clock .centerDot {
-  height: 13px;
-  width: 13px;
+  height: 0px;
+  width: 0px;
   background-color: #3A3A3A;
   position: absolute;
   top: 50%;
@@ -139,9 +235,10 @@ body {
 }
 .inner_clock .centerDot .hand {
   position: absolute;
-  height: 38px;
+  height: 0px;
   width: 4.5px;
   left: 50%;
+  top: 0px;
   top: 6.5px;
   transform: translateX(-50%);
   transform-origin: top center;
@@ -149,11 +246,60 @@ body {
   border-radius: 4px;
 }
 .inner_clock .centerDot .hourhand {
+  height: 0px;
   transform: rotate(45deg);
 }
 .inner_clock .centerDot .secondhand {
+  height: 0px;
   width: 3px;
   background-color: #DE4239;
   transform: rotate(80deg);
+}
+
+/**** LEGS AND SHADOW ****/
+.wrapper {
+  z-index: 2;
+  position: absolute;
+  height: 0px;
+  width: 0px;
+  background-color: #CC2F2E;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+  border-radius: 50%;
+}
+
+.leg {
+  display: none;
+  z-index: 1;
+  position: absolute;
+  height: 35px;
+  width: 10px;
+  top: 134px;
+  background-color: #3A3A3A;
+  transform-origin: top center;
+  border-radius: 10px;
+}
+
+.leftLeg {
+  left: 35px;
+  transform: rotate(25deg);
+}
+
+.rightLeg {
+  right: 35px;
+  transform: rotate(-25deg);
+}
+
+.shadow {
+  height: 0px;
+  width: 0px;
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background-color: rgba(188, 181, 181, 0.663);
 }
 /*# sourceMappingURL=index.css.map */

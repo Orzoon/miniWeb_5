@@ -6,28 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>html css clock</title>
     <link rel="stylesheet" href="./css/index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+    <script src="./js/index.js"></script>
   </head>
   <body> 
-    <div class="main_container"> 
+    <div class="main_container">
       <div class="clock_container">
+        <div class="wrapper"> </div>
         <!-- outer elements-->
-        <div class="leftRing ring"> </div>
+        <div class="leftRing ring"></div>
         <div class="rightRing ring"> </div>
-        <div class="midRing ring"> </div>
+        <div class="midRing ring"> 
+          <div class="mr_top"></div>
+        </div>
+        <!--Legs--Shadows-->
+        <div class="leg leftLeg"> </div>
+        <div class="leg rightLeg"> </div>
+        <div class="shadow"></div>
         <!-- inner elements-->
-        <div class="first_con"> 
-          <div class="second_con"> </div>
-          <div class="third_con"> </div>
-          <div class="fourth_con">
-            <div class="inner_clock">
-              <div class="time time1"> </div>
-              <div class="time time2"> </div>
-              <div class="time time3"> </div>
-              <div class="time time4"></div>
-              <div class="centerDot"> 
-                <div class="hourhand hand"></div>
-                <div class="minutehand hand"> </div>
-                <div class="secondhand hand"></div>
+        <div class="first_con_wrapper">
+          <div class="first_con"> 
+            <div class="second_con"> </div>
+            <div class="third_con"> </div>
+            <div class="fourth_con">
+              <div class="inner_clock_wrapper">
+                <div class="inner_clock">
+                  <div class="time time1"> </div>
+                  <div class="time time2"> </div>
+                  <div class="time time3"> </div>
+                  <div class="time time4"></div>
+                  <div class="centerDot"> 
+                    <div class="hourhand hand"></div>
+                    <div class="minutehand hand"> </div>
+                    <div class="secondhand hand"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
